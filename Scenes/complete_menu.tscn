@@ -1,4 +1,7 @@
-[gd_scene format=3 uid="uid://cebls7f645328"]
+[gd_scene load_steps=3 format=3 uid="uid://cebls7f645328"]
+
+[ext_resource type="Script" path="res://Scripts/complete_menu.gd" id="1_tjodh"]
+[ext_resource type="Theme" uid="uid://d1ff85lu8qqwm" path="res://Assets/base_theme.tres" id="2_auq2y"]
 
 [node name="CompleteMenu" type="Control"]
 layout_mode = 3
@@ -7,6 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_tjodh")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 1
@@ -15,9 +19,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_auq2y")
+follow_focus = true
 
-[node name="Control" type="Control" parent="ScrollContainer"]
-custom_minimum_size = Vector2(0, 2000)
+[node name="OptionHolder" type="Control" parent="ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3

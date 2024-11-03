@@ -15,7 +15,7 @@ script = ExtResource("1_qnd4x")
 line_edits = [NodePath("../FullCoverageTestControl/LineEdit")]
 completion_options = Array[String](["hello", "yupyup", "test_single", "test multi words"])
 menu_location_node = NodePath("../FullCoverageTestControl")
-not_cover_nodes = [NodePath("../NotCoverNodes/north-test"), NodePath("../NotCoverNodes/east-test"), NodePath("../NotCoverNodes/south-test")]
+not_cover_nodes = [null, null, null]
 
 [node name="FullCoverageTestControl" type="ColorRect" parent="."]
 layout_mode = 1
@@ -35,8 +35,10 @@ anchor_left = 0.3
 anchor_top = 0.45
 anchor_right = 0.6
 anchor_bottom = 0.5
-offset_top = -15.5
-offset_bottom = 15.5
+offset_left = 42.12
+offset_top = 89.58
+offset_right = 42.1198
+offset_bottom = 120.58
 grow_horizontal = 2
 grow_vertical = 2
 placeholder_text = "Insert Text"
@@ -47,35 +49,3 @@ anchor_right = 0.5
 anchor_bottom = 0.8
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="NotCoverNodes" type="Control" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="north-test" type="ColorRect" parent="NotCoverNodes"]
-layout_mode = 0
-offset_left = 478.0
-offset_top = 33.0
-offset_right = 734.0
-offset_bottom = 184.0
-color = Color(1, 0, 0, 1)
-
-[node name="east-test" type="ColorRect" parent="NotCoverNodes"]
-layout_mode = 0
-offset_left = 956.0
-offset_top = 226.0
-offset_right = 1152.0
-offset_bottom = 377.0
-color = Color(1, 0, 0, 1)
-
-[node name="south-test" type="ColorRect" parent="NotCoverNodes"]
-layout_mode = 0
-offset_left = 467.0
-offset_top = 499.0
-offset_right = 930.0
-offset_bottom = 650.0
-color = Color(1, 0, 0, 1)
