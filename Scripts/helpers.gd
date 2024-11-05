@@ -19,7 +19,6 @@ static func calculate_sub_rect_space(sub_rect, top_rect):
 		directions_dict[direction_strings[i]] = directions[i]
 
 	directions_dict["Values"] = directions
-	#print("Location Rect: ",top_rect,"\nEdit Rect:", sub_rect, "\nIntersects?: ", top_rect.intersects(sub_rect), "\nRelative Position: ", position_rel,"\nReturn Dict: ", directions_dict)
 	return directions_dict
 
 ## subtracts a [param sub_rect] from a [param base_rect] and returns a dict of up to 4 new rects around the subtracted rect. [br]
