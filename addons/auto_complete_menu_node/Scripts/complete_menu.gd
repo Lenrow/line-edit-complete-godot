@@ -1,15 +1,15 @@
 class_name CompleteMenu
 extends Control
 
-## defines the size of the menu, in relation to the edit
-## if this was (1,1) the menu would have the same size as the edit
-const DEF_SIZE_MULT = Vector2(1, 4) 
-const DEF_SIZE_MIN = Vector2(100, 0)
-
 var visible_nodes: Array[Control] ## all the term-nodes that are currently visible
 var all_nodes: Array[Control] ## all the term nodes, one for each term
 var edit: LineEdit ## the edit this menu applies to
 
+## defines the size of the menu, in relation to the edit
+## if this was (1,1) the menu would have the same size as the edit
+var size_mult = Vector2(1, 4) 
+var size_min = Vector2(100, 0)
+var edit_margin = 0
 var node_margin_y: float = 3
 var node_size: float : 
 	get:
@@ -43,7 +43,7 @@ func set_up_menu(placement_point: Vector2, direction_main, direction_sub, maximu
 	grow_upwards = direction_sub == Enums.Direction.NORTH
 
 	max_size = maximum_size
-	resize(edit.size * DEF_SIZE_MULT)
+	resize(edit.size * size_mult)
 
 	edit.connect("text_changed", refresh_nodes)
 	refresh_nodes("")
@@ -83,8 +83,8 @@ func remove_terms(terms: Array):
 ## recalculates size and position
 func resize(new_size= null):
 	if new_size == null:
-		new_size = Vector2(edit.size.x * DEF_SIZE_MULT.x, min(edit.size.y * DEF_SIZE_MULT.y, node_size))
-		new_size = DEF_SIZE_MIN.max(new_size)
+		new_size = Vector2(edit.size.x * size_mult.x, min(edit.size.y * size_mult.y, node_size))
+		new_size = size_min.max(new_size)
 	if max_size:
 		size = max_size.min(new_size)
 	else:
@@ -96,14 +96,14 @@ func resize(new_size= null):
 func calc_anchor_point():
 	match main_direction:
 		Enums.Direction.NORTH:
-			anchor_point = edit.global_position - Vector2(0, get_rect().size.y)
+			anchor_point = edit.global_position - Vector2(0, get_rect().size.y + edit_margin)
 		Enums.Direction.EAST:
-			anchor_point = Vector2(edit.get_global_rect().end.x, edit.global_position.y)
+			anchor_point = Vector2(edit.get_global_rect().end.x + edit_margin, edit.global_position.y)
 			anchor_point.y -= (get_rect().size.y - edit.size.y) if grow_upwards else 0.
 		Enums.Direction.SOUTH:
-			anchor_point = Vector2(edit.global_position.x, edit.get_global_rect().end.y)
+			anchor_point = Vector2(edit.global_position.x, edit.get_global_rect().end.y + edit_margin)
 		Enums.Direction.WEST:
-			anchor_point = Vector2(edit.global_position.x - get_rect().size.x, edit.global_position.y)
+			anchor_point = Vector2(edit.global_position.x - get_rect().size.x - edit_margin, edit.global_position.y)
 			anchor_point.y -= (get_rect().size.y - edit.size.y) if grow_upwards else 0.
 
 ## positions the nodes, based on the order they are given
@@ -194,6 +194,14 @@ func on_option_chosen(text):
 
 func get_option_text(option: Control):
 	return option.get_node("CompleteText").text
+
+func set_transform_values(margin, min_size, mult_size):
+	if margin:
+		edit_margin = margin
+	if min_size:
+		size_min = min_size
+	if mult_size:
+		size_mult = mult_size
 
 func compare_options(a, b):
 	a = get_option_text(a)

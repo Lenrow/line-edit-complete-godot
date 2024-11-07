@@ -15,6 +15,9 @@ script = ExtResource("1_ltpj7")
 line_edits = [NodePath("../LineEdit")]
 terms = Array[String](["test", "hey_ho"])
 menu_location_node = NodePath("..")
+margin = 20.0
+size_min = null
+size_mult = null
 
 [node name="LineEdit" type="LineEdit" parent="."]
 layout_mode = 0

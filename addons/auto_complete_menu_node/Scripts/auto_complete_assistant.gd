@@ -20,6 +20,11 @@ var complete_menu = preload("res://addons/auto_complete_menu_node/Scenes/complet
 ## you can define the key that is used to access with this.
 @export var terms_dict_key: String = "terms"
 
+@export_group("Menu Transform Settings")
+@export var margin: float = 0
+@export var size_min: Vector2 = Vector2(100, 0)
+@export var size_mult: Vector2 = Vector2(1, 4)
+
 @export_group("Disabled Menu Directions")
 @export var disable_north: bool
 @export var disable_east: bool
@@ -39,6 +44,7 @@ func create_complete_menu(edit: LineEdit):
 	var placement_point = get_menu_placement_vec(edit, direction)
 	var new_menu: CompleteMenu = complete_menu.instantiate()
 	add_child(new_menu)
+	new_menu.set_transform_values(margin, size_min, size_mult)
 	new_menu.set_up_menu(placement_point, direction, location_info[1], location_info[2], edit)
 	insert_terms(new_menu)
 
@@ -114,3 +120,31 @@ func get_menu_placement_vec(edit: LineEdit, direction):
 		
 	# TODO: add margins or stuff
 	return return_vec
+## loads new terms into all menus
+## if [param override] is set to true, all prior loaded terms will be forgotten
+func load_terms(new_terms, override=false):
+	if override:
+		terms = new_terms
+	else:
+		terms.append_array(new_terms)
+	
+	for menu in menus:
+		menu.load_terms(new_terms, override)
+
+## adds new [param edit] and creates a menu for it
+func add_edit(edit):
+	if not edit in line_edits:
+		line_edits.append(edit)
+		create_complete_menu(edit)
+	else:
+		assert(false, "ERROR: trying to add new edit which already has a complete menu")
+
+## removes an [param edit] and its menu if it exists. Will not remove the edit node from the scene just its connection to this node.
+func remove_edit(edit):
+	if edit in line_edits:
+		for menu in menus:
+			if menu.edit == edit:
+				menu.queue_free()
+				line_edits.remove_at(line_edits.find(edit))
+	else:
+		assert(false, "ERROR: trying to remove an edit that has no complete menu")
