@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="line-edit-complete-godot"
-run/main_scene="res://Scenes/line_edit_example.tscn"
+run/main_scene="res://addons/auto_complete_menu_node/Scenes/line_edit_example.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -19,9 +19,13 @@ config/icon="res://icon.svg"
 
 project/assembly_name="line-edit-complete-godot"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/auto_complete_menu_node/plugin.cfg")
+
 [file_customization]
 
 folder_colors={
-"res://Scenes/": "purple",
-"res://Scripts/": "red"
+"res://addons/auto_complete_menu_node/Scenes/": "purple",
+"res://addons/auto_complete_menu_node/Scripts/": "red"
 }

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bal2cvrrckfs1"]
 
-[ext_resource type="Script" path="res://Scripts/auto_complete_assistant.gd" id="1_qnd4x"]
+[ext_resource type="Script" path="res://addons/auto_complete_menu_node/Scripts/auto_complete_assistant.gd" id="1_qnd4x"]
 
 [node name="LineEditExample" type="Control"]
 layout_mode = 3
@@ -14,9 +14,7 @@ grow_vertical = 2
 script = ExtResource("1_qnd4x")
 line_edits = [NodePath("../FullCoverageTestControl/LineEdit")]
 menu_location_node = NodePath("../FullCoverageTestControl")
-terms_file_path = "res://example_terms_file.json"
-terms_dict_key = null
-disable_west = null
+terms_file_path = "res://addons/auto_complete_menu_node/example_terms_file.json"
 
 [node name="FullCoverageTestControl" type="ColorRect" parent="."]
 layout_mode = 1

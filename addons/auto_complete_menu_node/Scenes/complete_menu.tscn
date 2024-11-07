@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cebls7f645328"]
 
-[ext_resource type="Script" path="res://Scripts/complete_menu.gd" id="1_tjodh"]
-[ext_resource type="Theme" uid="uid://d1ff85lu8qqwm" path="res://Assets/base_theme.tres" id="2_auq2y"]
+[ext_resource type="Script" path="res://addons/auto_complete_menu_node/Scripts/complete_menu.gd" id="1_tjodh"]
+[ext_resource type="Theme" uid="uid://d1ff85lu8qqwm" path="res://addons/auto_complete_menu_node/Assets/base_theme.tres" id="2_auq2y"]
 
 [node name="CompleteMenu" type="Control"]
 layout_mode = 3

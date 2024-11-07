@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://cg3fhu8cvjjqm"]
+
+[ext_resource type="Script" path="res://addons/auto_complete_menu_node/Scripts/auto_complete_assistant.gd" id="1_ltpj7"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Auto Complete Assistant" type="Node" parent="." node_paths=PackedStringArray("line_edits", "menu_location_node")]
+script = ExtResource("1_ltpj7")
+line_edits = [NodePath("../LineEdit")]
+terms = Array[String](["test", "hey_ho"])
+menu_location_node = NodePath("..")
+
+[node name="LineEdit" type="LineEdit" parent="."]
+layout_mode = 0
+offset_right = 453.0
+offset_bottom = 31.0

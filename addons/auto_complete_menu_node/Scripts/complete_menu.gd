@@ -31,7 +31,7 @@ var is_in_focus: bool
 var is_in_selection: bool
 #endregion
 
-var option_scene = preload("res://Scenes/complete_option.tscn")
+var option_scene = preload("res://addons/auto_complete_menu_node/Scenes/complete_option.tscn")
 
 @onready var option_holder: Control = $ScrollContainer/OptionHolder
 @onready var scroll_container: ScrollContainer = $ScrollContainer
@@ -149,8 +149,12 @@ func refresh_nodes(text: String):
 
 	resize()
 	if visible_nodes:
-		edit.focus_neighbor_top = visible_nodes[0].get_node("Button").get_path()
-		visible_nodes[0].get_node("Button").focus_neighbor_bottom = edit.get_path()
+		if grow_upwards:
+			edit.focus_neighbor_top = visible_nodes[0].get_node("Button").get_path()
+			visible_nodes[0].get_node("Button").focus_neighbor_bottom = edit.get_path()
+		else:
+			edit.focus_neighbor_bottom = visible_nodes[0].get_node("Button").get_path()
+			visible_nodes[0].get_node("Button").focus_neighbor_top = edit.get_path()
 	show_menu(false)
 
 func show_menu(refresh=true):
@@ -204,14 +208,18 @@ func compare_options(a, b):
 ## makes it so the optionmenu can be navigated with the arrow keys, by interrupting default lineEdit key behavior
 func _input(event):
 	if event is InputEventKey:
-		
-		if event.is_action_pressed("ui_up") and not is_in_selection and visible_nodes:
+
+		var select_nav_button = "ui_up" if grow_upwards else "ui_down"
+		var back_nav_button = "ui_down" if grow_upwards else "ui_up"
+		var edit_focus_neighbor = edit.focus_neighbor_top if grow_upwards else edit.focus_neighbor_bottom
+
+		if event.is_action_pressed(select_nav_button) and not is_in_selection and visible_nodes:
 			get_viewport().set_input_as_handled()
 			is_in_selection = true
-			get_node(edit.focus_neighbor_top).grab_focus()
-			
+			get_node(edit_focus_neighbor).grab_focus()
 		
-		if event.is_action_pressed("ui_down") and is_in_selection:
+	
+		if event.is_action_pressed(back_nav_button) and is_in_selection:
 			is_in_selection = false
 	
 	if event is InputEventMouseButton:

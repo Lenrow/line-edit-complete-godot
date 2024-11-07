@@ -2,7 +2,7 @@
 class_name AutoCompleteAssistant
 extends Node
 
-var complete_menu = preload("res://Scenes/complete_menu.tscn")
+var complete_menu = preload("res://addons/auto_complete_menu_node/Scenes/complete_menu.tscn")
 
 ## the line_edit nodes this node should spawn menus for
 @export var line_edits: Array[LineEdit]
@@ -30,7 +30,8 @@ var menus: Array[CompleteMenu]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	create_complete_menu(line_edits[0])
+	for edit in line_edits:
+		create_complete_menu(edit)
 
 func create_complete_menu(edit: LineEdit):
 	var location_info = get_location_boundaries(edit) # 0 is main direction as int (from enum) 1 is sub-direction so if north or south greater (for east-west) is max_size vector
