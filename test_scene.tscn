@@ -13,13 +13,17 @@ grow_vertical = 2
 [node name="Auto Complete Assistant" type="Node" parent="." node_paths=PackedStringArray("line_edits", "menu_location_node")]
 script = ExtResource("1_ltpj7")
 line_edits = [NodePath("../LineEdit")]
-terms = Array[String](["test", "hey_ho"])
 menu_location_node = NodePath("..")
-margin = 20.0
+terms_file_path = "res://addons/auto_complete_menu_node/example_terms_file.json"
 size_min = null
 size_mult = null
+disable_north = true
+disable_east = true
+disable_west = true
 
 [node name="LineEdit" type="LineEdit" parent="."]
 layout_mode = 0
-offset_right = 453.0
-offset_bottom = 31.0
+offset_left = 368.0
+offset_top = 198.0
+offset_right = 821.0
+offset_bottom = 229.0
