@@ -1,7 +1,7 @@
 # line-edit-complete-godot
 Custom Node in the godot engine. Configurable with a LineEdit to create an auto-complete menu.
 
-![Plugin Example](doc-files\line-edit-complete-preview.gif)
+![Plugin Example](doc-files/line-edit-complete-preview.gif)
 
 ## How to Use
 1. Add the AutoCompleteAssistant node to your scene.
