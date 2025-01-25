@@ -1,3 +1,4 @@
+@tool
 class_name CompleteMenu
 extends Control
 
@@ -86,9 +87,9 @@ func resize(new_size= null):
 		new_size = Vector2(edit.size.x * size_mult.x, min(edit.size.y * size_mult.y, node_size))
 		new_size = size_min.max(new_size)
 	if max_size:
-		size = max_size.min(new_size)
+		set_deferred("size", max_size.min(new_size))
 	else:
-		size = new_size
+		set_deferred("size", new_size)
 	calc_anchor_point()
 	position = anchor_point
 	
@@ -116,7 +117,7 @@ func reposition_nodes(ordered_nodes: Array[Control]):
 	for node in ordered_nodes:
 		node.position = current_position
 		node.position.y -= node.size.y if grow_upwards else 0.
-		node.size.x = option_holder.size.x
+		node.set_deferred("size", Vector2(option_holder.size.x, node.size.y))
 		current_position.y += grow_indicator * (node.size.y + node_margin_y)
 
 ## sorts the nodes anew based on the new text and calls the reposition method
@@ -221,6 +222,9 @@ func _input(event):
 		var back_nav_button = "ui_down" if grow_upwards else "ui_up"
 		var edit_focus_neighbor = edit.focus_neighbor_top if grow_upwards else edit.focus_neighbor_bottom
 
+		if not edit.has_focus():
+			return
+
 		if event.is_action_pressed(select_nav_button) and not is_in_selection and visible_nodes:
 			get_viewport().set_input_as_handled()
 			is_in_selection = true
@@ -233,5 +237,8 @@ func _input(event):
 	if event is InputEventMouseButton:
 		if event.is_released():
 			if not (get_global_rect().has_point(get_global_mouse_position()) or edit.get_global_rect().has_point(get_global_mouse_position())):
-				edit.release_focus()
+				if edit.has_focus():
+					edit.release_focus()
+				else:
+					hide_menu(true)
 			

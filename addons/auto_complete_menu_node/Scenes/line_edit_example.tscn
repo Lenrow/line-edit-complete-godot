@@ -34,12 +34,13 @@ anchor_left = 0.3
 anchor_top = 0.45
 anchor_right = 0.6
 anchor_bottom = 0.5
-offset_left = -371.88
-offset_top = 9.58002
-offset_right = -371.88
-offset_bottom = 40.58
+offset_left = -6.88
+offset_top = 25.58
+offset_right = -6.88
+offset_bottom = 56.58
 grow_horizontal = 2
 grow_vertical = 2
+focus_neighbor_top = NodePath("/root/@EditorNode@16914/@Panel@13/@VBoxContainer@14/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@25/DockVSplitCenter/@VSplitContainer@52/@VBoxContainer@53/@PanelContainer@98/MainScreen/@CanvasItemEditor@9272/@VSplitContainer@9094/@HSplitContainer@9096/@HSplitContainer@9098/@Control@9099/@SubViewportContainer@9100/@SubViewport@9101/LineEditExample/AutoCompleteAssistant/CompleteMenu/ScrollContainer/OptionHolder/@ColorRect@37352/Button")
 placeholder_text = "Insert Text"
 
 [node name="OutOfCoverageTestControl" type="Control" parent="."]
