@@ -18,6 +18,7 @@ terms_file_path = "res://addons/auto_complete_menu_node/example_terms_file.json"
 disable_north = true
 disable_east = true
 disable_west = true
+use_edit_font_size = null
 
 [node name="LineEdit" type="LineEdit" parent="."]
 layout_mode = 0

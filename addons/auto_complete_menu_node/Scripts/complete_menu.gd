@@ -24,6 +24,8 @@ var main_direction: Enums.Direction ## main menu direction
 var max_size: Vector2
 var grow_upwards: bool = false 
 
+var use_edit_font_size: bool
+
 var current_text: String = "" ## the text that is currently checked. Not entire edit text if whitespaces are there
 var all_active_terms: Array = [] ## all loaded terms in one array
 
@@ -54,15 +56,23 @@ func set_up_menu(placement_point: Vector2, direction_main, direction_sub, maximu
 func load_terms(terms: Array, override_terms=false):
 	if override_terms:
 		remove_terms(all_active_terms)
-
-	for term: String in terms:
-		if term in all_active_terms:
-			continue
-		var option = option_scene.instantiate()
-		option_holder.add_child(option)
-		option.get_node("CompleteText").text = term
-		option.get_node("Button").connect("option_chosen", on_option_chosen)
-		all_nodes.append(option)
+	if terms:
+		var base_option = option_scene.instantiate()
+		if use_edit_font_size:
+			var theme_font_size = edit.get_theme_font_size("font_size")
+			var label_settings_obj = base_option.get_node("CompleteText").label_settings
+			if theme_font_size:
+				label_settings_obj.font_size = theme_font_size
+			else:
+				label_settings_obj.font_size = edit.get_theme_default_font_size()
+		for term: String in terms:
+			if term in all_active_terms:
+				continue
+			var option = base_option.duplicate()
+			option_holder.add_child(option)
+			option.get_node("CompleteText").text = term
+			option.get_node("Button").connect("option_chosen", on_option_chosen)
+			all_nodes.append(option)
 
 	all_active_terms.append_array(terms)
 	refresh_nodes(current_text)
