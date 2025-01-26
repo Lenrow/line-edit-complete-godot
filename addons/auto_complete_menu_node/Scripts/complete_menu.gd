@@ -1,3 +1,4 @@
+@tool
 class_name CompleteMenu
 extends Control
 
@@ -22,6 +23,8 @@ var anchor_point: Vector2 ## position is calculated relative to edit by resize
 var main_direction: Enums.Direction ## main menu direction
 var max_size: Vector2
 var grow_upwards: bool = false 
+
+var use_edit_font_size: bool
 
 var current_text: String = "" ## the text that is currently checked. Not entire edit text if whitespaces are there
 var all_active_terms: Array = [] ## all loaded terms in one array
@@ -53,15 +56,23 @@ func set_up_menu(placement_point: Vector2, direction_main, direction_sub, maximu
 func load_terms(terms: Array, override_terms=false):
 	if override_terms:
 		remove_terms(all_active_terms)
-
-	for term: String in terms:
-		if term in all_active_terms:
-			continue
-		var option = option_scene.instantiate()
-		option_holder.add_child(option)
-		option.get_node("CompleteText").text = term
-		option.get_node("Button").connect("option_chosen", on_option_chosen)
-		all_nodes.append(option)
+	if terms:
+		var base_option = option_scene.instantiate()
+		if use_edit_font_size:
+			var theme_font_size = edit.get_theme_font_size("font_size")
+			var label_settings_obj = base_option.get_node("CompleteText").label_settings
+			if theme_font_size:
+				label_settings_obj.font_size = theme_font_size
+			else:
+				label_settings_obj.font_size = edit.get_theme_default_font_size()
+		for term: String in terms:
+			if term in all_active_terms:
+				continue
+			var option = base_option.duplicate()
+			option_holder.add_child(option)
+			option.get_node("CompleteText").text = term
+			option.get_node("Button").connect("option_chosen", on_option_chosen)
+			all_nodes.append(option)
 
 	all_active_terms.append_array(terms)
 	refresh_nodes(current_text)
@@ -86,9 +97,9 @@ func resize(new_size= null):
 		new_size = Vector2(edit.size.x * size_mult.x, min(edit.size.y * size_mult.y, node_size))
 		new_size = size_min.max(new_size)
 	if max_size:
-		size = max_size.min(new_size)
+		set_deferred("size", max_size.min(new_size))
 	else:
-		size = new_size
+		set_deferred("size", new_size)
 	calc_anchor_point()
 	position = anchor_point
 	
@@ -116,7 +127,7 @@ func reposition_nodes(ordered_nodes: Array[Control]):
 	for node in ordered_nodes:
 		node.position = current_position
 		node.position.y -= node.size.y if grow_upwards else 0.
-		node.size.x = option_holder.size.x
+		node.set_deferred("size", Vector2(option_holder.size.x, node.size.y))
 		current_position.y += grow_indicator * (node.size.y + node_margin_y)
 
 ## sorts the nodes anew based on the new text and calls the reposition method
@@ -221,6 +232,9 @@ func _input(event):
 		var back_nav_button = "ui_down" if grow_upwards else "ui_up"
 		var edit_focus_neighbor = edit.focus_neighbor_top if grow_upwards else edit.focus_neighbor_bottom
 
+		if not edit.has_focus():
+			return
+
 		if event.is_action_pressed(select_nav_button) and not is_in_selection and visible_nodes:
 			get_viewport().set_input_as_handled()
 			is_in_selection = true
@@ -233,5 +247,8 @@ func _input(event):
 	if event is InputEventMouseButton:
 		if event.is_released():
 			if not (get_global_rect().has_point(get_global_mouse_position()) or edit.get_global_rect().has_point(get_global_mouse_position())):
-				edit.release_focus()
+				if edit.has_focus():
+					edit.release_focus()
+				else:
+					hide_menu(true)
 			

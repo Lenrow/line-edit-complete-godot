@@ -1,7 +1,8 @@
+@tool
 class_name Helpers
 extends Object
 
-static var direction_strings = ["NORTH", "EAST", "SOUTH", "WEST"]
+const DIRECTION_STRINGS = ["NORTH", "EAST", "SOUTH", "WEST"]
 
 ## calculates the free space in 4 direction of a rect that should be within another rect. [br]
 ## [param sub_rect] is the rect that should be contained within the [param top_rect].[br]
@@ -15,8 +16,8 @@ static func calculate_sub_rect_space(sub_rect, top_rect):
 	directions[1] = top_rect.size.x - (position_rel.x + sub_rect.size.x) # add east
 	directions[2] = top_rect.size.y - (position_rel.y + sub_rect.size.y) # add south
 
-	for i in direction_strings.size(): # add values to dict
-		directions_dict[direction_strings[i]] = directions[i]
+	for i in DIRECTION_STRINGS.size(): # add values to dict
+		directions_dict[DIRECTION_STRINGS[i]] = directions[i]
 
 	directions_dict["Values"] = directions
 	return directions_dict
@@ -50,7 +51,7 @@ static func subtract_rects(base_rect: Rect2, sub_rect: Rect2, size_threshold: Ve
 		rect_size = rect_size.max(Vector2(0, 0))
 		direction_rects[i] = Rect2(rect_pos, rect_size)
 
-		return_dict[direction_strings[i]] = direction_rects[i] # add rect to return_dict
+		return_dict[DIRECTION_STRINGS[i]] = direction_rects[i] # add rect to return_dict
 
 	return_dict["Values"] = direction_rects # add final rect array to return_dict
 	return return_dict

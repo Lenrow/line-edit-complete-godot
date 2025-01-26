@@ -31,6 +31,9 @@ var complete_menu = preload("res://addons/auto_complete_menu_node/Scenes/complet
 @export var disable_south: bool
 @export var disable_west: bool
 
+@export_group("UI parameters")
+@export var use_edit_font_size: bool
+
 var menus: Array[CompleteMenu]
 
 # Called when the node enters the scene tree for the first time.
@@ -44,6 +47,7 @@ func create_complete_menu(edit: LineEdit):
 	var placement_point = get_menu_placement_vec(edit, direction)
 	var new_menu: CompleteMenu = complete_menu.instantiate()
 	add_child(new_menu)
+	new_menu.use_edit_font_size = use_edit_font_size
 	new_menu.set_transform_values(margin, size_min, size_mult)
 	new_menu.set_up_menu(placement_point, direction, location_info[1], location_info[2], edit)
 	insert_terms(new_menu)
