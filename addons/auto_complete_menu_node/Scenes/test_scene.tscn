@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://cg3fhu8cvjjqm"]
+[gd_scene load_steps=2 format=3 uid="uid://wcenqew6s60t"]
 
 [ext_resource type="Script" path="res://addons/auto_complete_menu_node/Scripts/auto_complete_assistant.gd" id="1_ltpj7"]
 
@@ -18,7 +18,6 @@ terms_file_path = "res://addons/auto_complete_menu_node/example_terms_file.json"
 disable_north = true
 disable_east = true
 disable_west = true
-use_edit_font_size = null
 
 [node name="LineEdit" type="LineEdit" parent="."]
 layout_mode = 0
@@ -26,4 +25,4 @@ offset_left = 368.0
 offset_top = 198.0
 offset_right = 821.0
 offset_bottom = 229.0
-focus_neighbor_bottom = NodePath("/root/@EditorNode@16914/@Panel@13/@VBoxContainer@14/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@25/DockVSplitCenter/@VSplitContainer@52/@VBoxContainer@53/@PanelContainer@98/MainScreen/@CanvasItemEditor@9272/@VSplitContainer@9094/@HSplitContainer@9096/@HSplitContainer@9098/@Control@9099/@SubViewportContainer@9100/@SubViewport@9101/Control/Auto Complete Assistant/CompleteMenu/ScrollContainer/OptionHolder/@ColorRect@37378/Button")
+focus_neighbor_bottom = NodePath("/root/@EditorNode@16914/@Panel@13/@VBoxContainer@14/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@25/DockVSplitCenter/@VSplitContainer@52/@VBoxContainer@53/@PanelContainer@98/MainScreen/@CanvasItemEditor@9272/@VSplitContainer@9094/@HSplitContainer@9096/@HSplitContainer@9098/@Control@9099/@SubViewportContainer@9100/@SubViewport@9101/Control/Auto Complete Assistant/CompleteMenu/ScrollContainer/OptionHolder/@ColorRect@19979/Button")
